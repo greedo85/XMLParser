@@ -6,10 +6,17 @@ public class DataElement {
     private List<String> info;
 
     public DataElement() {
-        info=new LinkedList<>();
+        info = new LinkedList<>();
     }
-    public void addToInfo(String tag)
-    {
+
+    public void addToInfo( String tag ) {
         info.add(tag);
+    }
+
+    @Override
+    public String toString() {
+        return "DataElement{" +
+                "info=" + info +
+                '}';
     }
 }

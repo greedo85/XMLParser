@@ -19,18 +19,19 @@ public class XMLParser {
     DocumentBuilder documentBuilder;
     Document document;
     URI uri;
-    List<String> keyWords;
-    List<Element>elementList;
+    List<String> tagNames;
+    List<DataElement> dataElementList;
     DataElement dataElement;
     public XMLParser() throws ParserConfigurationException {
         documentBuilderFactory=DocumentBuilderFactory.newInstance();
         documentBuilder=documentBuilderFactory.newDocumentBuilder();
-        keyWords=new ArrayList<>();
+        tagNames =new ArrayList<>();
+        dataElementList =new ArrayList<>();
     }
 
-    public void setKeyWords(String keyword)
+    public void setTagNames( String elementTagName)
     {
-        keyWords.add(keyword);
+        tagNames.add(elementTagName);
     }
 
     public void parseXML(String adress, String tagname) throws URISyntaxException, IOException, SAXException {
@@ -45,12 +46,13 @@ public class XMLParser {
             if(node.getNodeType()==Node.ELEMENT_NODE)
             {
                 Element element=(Element)node;
-                for (int j=0;j<keyWords.size();j++)
+                for (int j = 0; j< tagNames.size(); j++)
                 {
                     dataElement=new DataElement();
-                    someElement=element.getElementsByTagName(keyWords.get(j)).item(0).getTextContent();
+                    someElement=element.getElementsByTagName(tagNames.get(j)).item(0).getTextContent();
                     dataElement.addToInfo(someElement);
-                    System.out.println(someElement);
+                    dataElementList.add(dataElement);
+                   // System.out.println(someElement);
                 }
             }
         }
