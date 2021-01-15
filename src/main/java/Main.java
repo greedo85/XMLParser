@@ -31,15 +31,16 @@ public class Main {
             }
 
         } while (choice != 0);
+        System.out.println("Wybrałeś tagi: ");
         xmlParser.tagNames.forEach(System.out::println);
         System.out.println("podaj słowa kluczowe ");
 
         xmlParser.parseXML("https://justjoin.it/feed.atom", "entry");
         xmlParser.dataElementList.forEach(System.out::println);
-        List<DataElement> list=xmlParser.dataElementList.stream().filter(c->
+        /*List<DataElement> list=xmlParser.dataElementList.stream().filter(c->
         {
             c.equals(xmlParser.dataElement.
-        })
+        })*/
     }
 
 }

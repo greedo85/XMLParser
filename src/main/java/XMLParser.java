@@ -22,38 +22,33 @@ public class XMLParser {
     List<String> tagNames;
     List<DataElement> dataElementList;
     DataElement dataElement;
+
     public XMLParser() throws ParserConfigurationException {
-        documentBuilderFactory=DocumentBuilderFactory.newInstance();
-        documentBuilder=documentBuilderFactory.newDocumentBuilder();
-        tagNames =new ArrayList<>();
-        dataElementList =new ArrayList<>();
+        documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        tagNames = new ArrayList<>();
+        dataElementList = new ArrayList<>();
     }
 
-    public void setTagNames( String elementTagName)
-    {
+    public void setTagNames( String elementTagName ) {
         tagNames.add(elementTagName);
     }
 
-    public void parseXML(String adress, String tagname) throws URISyntaxException, IOException, SAXException {
-        uri=new URI(adress);
-        document=documentBuilder.parse(String.valueOf(uri));
-        NodeList nodeList=document.getElementsByTagName(tagname);
-
+    public void parseXML( String adress, String tagname ) throws URISyntaxException, IOException, SAXException {
+        uri = new URI(adress);
+        document = documentBuilder.parse(String.valueOf(uri));
+        NodeList nodeList = document.getElementsByTagName(tagname);
         String someElement;
-        for(int i=0; i<nodeList.getLength();i++)
-        {
-            Node node=nodeList.item(i);
-            if(node.getNodeType()==Node.ELEMENT_NODE)
-            {
-                Element element=(Element)node;
-                for (int j = 0; j< tagNames.size(); j++)
-                {
-                    dataElement=new DataElement();
-                    someElement=element.getElementsByTagName(tagNames.get(j)).item(0).getTextContent();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                    dataElement = new DataElement();
+                for (int j = 0; j < tagNames.size(); j++) {
+                    someElement = element.getElementsByTagName(tagNames.get(j)).item(0).getTextContent();
                     dataElement.addToInfo(someElement);
-                    dataElementList.add(dataElement);
-                   // System.out.println(someElement);
                 }
+                    dataElementList.add(dataElement);
             }
         }
     }
